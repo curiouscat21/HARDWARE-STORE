@@ -1,0 +1,211 @@
+CREATE TABLE Product (
+  SKU INT PRIMARY KEY,
+  name VARCHAR(255),
+  description TEXT,
+  specifications TEXT,
+  category VARCHAR(50),
+  subcategory VARCHAR(50),
+  supplier_id INT,
+  unit_cost DECIMAL(10, 2),
+  retail_price DECIMAL(10, 2),
+  stock_level INT,
+  min_stock_level INT,
+  max_stock_level INT
+);
+
+CREATE TABLE Customer_individual (
+  customer_id INT PRIMARY KEY,
+  first_name VARCHAR(45),
+  last_name VARCHAR(45),
+  contact_info TEXT,
+  purchase_history TEXT
+);
+
+CREATE TABLE Customer_wholesale (
+  customer_id INT PRIMARY KEY,
+  first_name VARCHAR(45),
+  last_name VARCHAR(45),
+  contact_info TEXT,
+  purchase_history TEXT
+);
+
+CREATE TABLE Orders (
+  order_id INT PRIMARY KEY,
+  customer_id INT,
+  order_date DATETIME,
+  total_price DECIMAL(10, 2),
+  status VARCHAR(20),
+  shipping_details TEXT
+);
+
+CREATE TABLE Order_Item (order_id INT, SKU INT, quantity INT);
+
+CREATE TABLE Discount (
+  promotion_id INT PRIMARY KEY,
+  type VARCHAR(50),
+  discount DECIMAL(5, 2),
+  item_id INT,
+  category VARCHAR(50)
+);
+
+CREATE TABLE Sales_History (
+  sale_id INT PRIMARY KEY,
+  order_id INT,
+  sale_date DATETIME
+);
+
+CREATE TABLE Supplier (
+  supplier_id INT PRIMARY KEY,
+  first_name VARCHAR(45),
+  last_name VARCHAR(45),
+  contact_info TEXT,
+  payment_terms TEXT,
+  address TEXT
+);
+
+CREATE TABLE Purchase_Order (
+  order_id INT PRIMARY KEY,
+  supplier_id INT,
+  item_id INT,
+  quantity INT,
+  agreed_price DECIMAL(10, 2)
+);
+
+
+
+
+
+drop table customer_individual, customer_wholesale, discount, order_item, orders, product, purchase_order, sales_history, supplier;
+
+INSERT INTO supplier (supplier_id, first_name, last_name, contact_info, payment_terms, lead_time) 
+VALUES (202280112, Elon, Musk, 'elon@gmail.com', agreed, 8);
+
+INSERT INTO supplier (supplier_id, first_name, last_name, contact_info, payment_terms, lead_time) 
+VALUES (202280245, "Bruce", "Lee", 'Lee@gmail.com', "disagreed", 8);
+
+INSERT INTO supplier (supplier_id, first_name, last_name, contact_info, payment_method, address) 
+VALUES (202280243, "Mark", "Jardin", 'mark@gmail.com', "cash", "Puerto Princess City, Brgy San Pedro"), (202280245, "Drew", "Wakefield", 'Drew@gmail.com', "bank transfer", "Puerto Princess City, Brgy San Jose");
+
+DICOUNT TABLE
+SELECT * FROM `hardware store`.discount;
+INSERT INTO `hardware store`.discount (promotion_id, type, discount, item_id, category)
+VALUES
+(001, 'Percentage', 10, 'ABC123', 'Tools'),
+(002, 'Fixed', 5, 'DEF456', 'Building Materials'),
+(003, 'Percentage', 15, 'GHI789', 'Plumbing'),
+(004, 'Fixed', 7, 'JKL012', 'Electrical'),
+(005, 'Percentage', 20, 'MNO345', 'Tools'),
+(006, 'Fixed', 3, 'PQR678', 'Building Materials'),
+(007, 'Percentage', 12, 'STU901', 'Plumbing'),
+(008, 'Fixed', 6, 'VWX234', 'Electrical'),
+(009, 'Percentage', 18, 'YZA567', 'Tools'),
+(010, 'Fixed', 4, 'BCD890', 'Building Materials');
+
+
+Orders
+SELECT * FROM `hardware store`.orders;
+INSERT INTO orders (order_id, customer_id, order_date, total_price, status, shipping_details) 
+VALUES 
+(01, 1, '2024-04-08', 150.00, 'Purchased', 'Standard Shipping'), 
+(02, 2, '2024-04-08', 200.00, 'Purchased', 'Express Shipping'), 
+(03, 3, '2024-04-08', 100.00, 'Cancelled', 'Local Pickup'),
+(04, 4, '2024-04-08', 250.00, 'Purchased', 'Standard Shipping'),
+(05, 5, '2024-04-08', 300.00, 'Purchased', 'Standard Shipping'),
+(06, 6, '2024-04-08', 200.00, 'Cancelled', 'Express Shipping'),
+(07, 7, '2024-04-08', 120.00, 'Purchased', 'Standard Shipping'),
+(08, 8, '2024-04-08', 180.00, 'Purchased', 'Express Shipping'),
+(09, 9, '2024-04-08', 210.00, 'Purchased', 'Standard Shipping'),
+(10, 10, '2024-04-08', 190.00, 'Cancelled', 'Express Shipping'),
+(11, 11, '2024-04-08', 160.00, 'Purchased', 'Standard Shipping'),
+(12, 12, '2024-04-08', 220.00, 'Purchased', 'Express Shipping'),
+(13, 13, '2024-04-08', 230.00, 'Purchased', 'Standard Shipping'),
+(14, 14, '2024-04-08', 140.00, 'Cancelled', 'Standard Shipping'),
+(15, 15, '2024-04-08', 260.00, 'Purchased', 'Express Shipping'),
+(16, 16, '2024-04-08', 280.00, 'Purchased', 'Standard Shipping'),
+(17, 17, '2024-04-08', 170.00, 'Purchased', 'Express Shipping'),
+(18, 19, '2024-04-08', 240.00, 'Cancelled', 'Standard Shipping'),
+(19, 19, '2024-04-08', 320.00, 'Purchased', 'Express Shipping'),
+(20, 20, '2024-04-08', 290.00, 'Purchased', 'Standard Shipping');
+
+
+Product
+SELECT * FROM `hardware store`.product;
+INSERT INTO product (SKU, name, description, specifications, category, subcategory, supplier_id, unit_cost, retail_price, stock_level, min_stock_level, max_stock_level)
+VALUES 
+(11112222, 'Alex', 'flexible metallic conductor', 'Physical dimensions: 10x5x2 cm, Weight: 50 grams, Materials: Metal', 'Electronics', 'Cables', 1, 10.00, 15.00, 100, 20, 200),
+(11112223, 'Jhonny', 'flexible metallic conductor', 'Physical dimensions: 15x3x3 cm, Weight: 70 grams, Materials: Metal', 'Tools', 'Hammers', 1, 12.00, 18.00, 80, 15, 150),
+(11112224, 'Abel', 'flexible metallic conductor', 'Physical dimensions: 200x10x5 cm, Weight: 500 grams, Materials: Wood', 'Building Materials', 'Lumber', 1, 8.00, 14.00, 120, 25, 180),
+(11112225, 'Pablo', 'flexible metallic conductor', 'Physical dimensions: 5x5x5 cm, Weight: 100 grams, Materials: Plastic', 'Plumbing', 'Pipes', 1, 15.00, 25.00, 90, 10, 120),
+(11112226, 'Annah', 'flexible metallic conductor', 'Physical dimensions: 100x1x1 cm, Weight: 30 grams, Materials: Metal', 'Electrical', 'Wires', 3, 20.00, 30.00, 70, 5, 100),
+(11112227, 'Jack', 'flexible metallic conductor', 'Physical dimensions: 20x2x2 cm, Weight: 40 grams, Materials: Metal', 'Tools', 'Nails', 1, 9.00, 12.00, 110, 20, 160),
+(11112228, 'John', 'flexible metallic conductor', 'Physical dimensions: 150x10x5 cm, Weight: 300 grams, Materials: Wood', 'Building Materials', 'Lumber', 1, 8.00, 14.00, 100, 20, 200),
+(11112229, 'Emma', 'flexible metallic conductor', 'Physical dimensions: 10x10x10 cm, Weight: 200 grams, Materials: Plastic', 'Plumbing', 'Pipes', 2, 15.00, 25.00, 80, 10, 150),
+(11112230, 'Oliver', 'flexible metallic conductor', 'Physical dimensions: 50x1x1 cm, Weight: 20 grams, Materials: Metal', 'Electrical', 'Wires', 1, 20.00, 30.00, 90, 5, 120),
+(11112231, 'Samantha', 'flexible metallic conductor', 'Physical dimensions: 15x4x4 cm, Weight: 60 grams, Materials: Metal', 'Tools', 'Hammers', 1, 12.00, 18.00, 70, 15, 130),
+(11112232, 'Michael', 'flexible metallic conductor', 'Physical dimensions: 30x3x3 cm, Weight: 80 grams, Materials: Wood', 'Building Materials', 'Nails', 1, 9.00, 12.00, 120, 20, 180),
+(11112233, 'Emily', 'flexible metallic conductor', 'Physical dimensions: 8x8x8 cm, Weight: 150 grams, Materials: Plastic', 'Plumbing', 'Pipes', 2, 15.00, 25.00, 100, 10, 160),
+(11112234, 'David', 'flexible metallic conductor', 'Physical dimensions: 70x1x1 cm, Weight: 25 grams, Materials: Metal', 'Electrical', 'Wires', 1, 20.00, 30.00, 80, 5, 130),
+(11112235, 'Jennifer', 'flexible metallic conductor', 'Physical dimensions: 25x2x2 cm, Weight: 45 grams, Materials: Metal', 'Tools', 'Nails', 3, 9.00, 12.00, 90, 15, 140),
+(11112236, 'Robert', 'flexible metallic conductor', 'Physical dimensions: 180x10x5 cm, Weight: 400 grams, Materials: Wood', 'Building Materials', 'Lumber', 1, 8.00, 14.00, 110, 20, 190),
+(11112237, 'Jessica', 'flexible metallic conductor', 'Physical dimensions: 7x7x7 cm, Weight: 120 grams, Materials: Plastic', 'Plumbing', 'Pipes', 3, 15.00, 25.00, 70, 10, 130),
+(11112238, 'Christopher', 'flexible metallic conductor', 'Physical dimensions: 60x1x1 cm, Weight: 35 grams, Materials: Metal', 'Electrical', 'Wires', 1, 20.00, 30.00, 120, 5, 150),
+(11112239, 'Amanda', 'flexible metallic conductor', 'Physical dimensions: 18x4x4 cm, Weight: 55 grams, Materials: Metal', 'Tools', 'Hammers', 1, 12.00, 18.00, 100, 15, 160),
+(11112240, 'Matthew', 'flexible metallic conductor', 'Physical dimensions: 40x3x3 cm, Weight: 90 grams, Materials: Wood', 'Building Materials', 'Nails', 3, 9.00, 12.00, 130, 20, 200),
+(11112241, 'Elizabeth', 'flexible metallic conductor', 'Physical dimensions: 30x5x5 cm, Weight: 200 grams, Materials: Plastic', 'Plumbing', 'Pipes', 2, 15.00, 25.00, 110, 10, 170),
+(11112242, 'Daniel', 'flexible metallic conductor', 'Physical dimensions: 80x1x1 cm, Weight: 40 grams, Materials: Metal', 'Electrical', 'Wires', 2, 20.00, 30.00, 130, 5, 160),
+(11112243, 'Sarah', 'flexible metallic conductor', 'Physical dimensions: 20x2x2 cm, Weight: 70 grams, Materials: Metal', 'Tools', 'Nails', 1, 9.00, 12.00, 80, 15, 170),
+(11112244, 'William', 'flexible metallic conductor', 'Physical dimensions: 160x10x5 cm, Weight: 350 grams, Materials: Wood', 'Building Materials', 'Lumber', 3, 8.00, 14.00, 140, 20, 210),
+(11112245, 'Ashley', 'flexible metallic conductor', 'Physical dimensions: 50x5x5 cm, Weight: 180 grams, Materials: Plastic', 'Plumbing', 'Pipes', 2, 15.00, 25.00, 120, 10, 180),
+(11112246, 'Joseph', 'flexible metallic conductor', 'Physical dimensions: 22x1x1 cm, Weight: 45 grams, Materials: Metal', 'Electrical', 'Wires', 1, 20.00, 30.00, 140, 5, 170),
+(11112247, 'Lauren', 'flexible metallic conductor', 'Physical dimensions: 10x5x3 cm, Weight: 80 grams, Materials: Metal', 'Building Materials', 'Nails', 1, 6.00, 10.00, 150, 30, 250);
+
+
+sales_history
+SELECT * FROM `hardware store`.sales_history;
+INSERT INTO sales_history(sale_id, order_id, sale_date) 
+VALUES 
+(1, 1, '2024-04-07 10:30:00'), 
+(2, 2, '2024-04-07 11:45:00'), 
+(3, 3, '2024-04-07 13:15:00'),
+(4, 4, '2024-04-08 09:00:00'),
+(5, 5, '2024-04-08 10:15:00'), 
+(6, 6, '2024-04-08 12:30:00'), 
+(7, 7, '2024-04-08 14:45:00'), 
+(8, 8, '2024-04-08 16:00:00'),
+(9, 9, '2024-04-09 08:30:00'), 
+(10, 10, '2024-04-09 09:45:00'),
+(11, 11, '2024-04-09 11:00:00'), 
+(12, 12, '2024-04-09 13:15:00'), 
+(13, 13, '2024-04-09 14:30:00'),
+(14, 14, '2024-04-10 08:00:00'), 
+(15, 15, '2024-04-10 09:15:00'), 
+(16, 16, '2024-04-10 10:30:00'), 
+(17, 17, '2024-04-10 11:45:00'), 
+(18, 18, '2024-04-10 13:00:00'),
+(19, 19, '2024-04-10 14:15:00'), 
+(20, 20, '2024-04-10 15:30:00');
+
+purchase_order
+SELECT * FROM `hardware store`.purchase_order;
+INSERT INTO purchase_order(order_id, supplier_id, item_id, quantity, agreed_price) 
+VALUES 
+(1, 202220269, 123, 150, 15.00), 
+(2, 202220269, 456, 200, 18.00),
+(3, 202220269, 789, 100, 14.00),
+(4, 202280245, 12, 250, 22.50),
+(5, 202220269, 345, 300, 25.00), 
+(6, 202220269, 678, 180, 12.00), 
+(7, 202280243, 901, 120, 12.00), 
+(8, 202220269, 234, 220, 25.00),
+(9, 202220269, 567, 270, 30.00), 
+(10, 202220269, 890, 190, 15.00),
+(11, 202280243, 890, 160, 10.00), 
+(12, 202220269, 890, 210, 25.00), 
+(13, 202280245, 901, 230, 30.00),
+(14, 202220269, 901, 140, 10.00), 
+(15, 202280245, 123, 260, 14.00), 
+(16, 202280243, 456, 280, 25.00), 
+(17, 202280243, 456, 170, 30.00), 
+(18, 202220269, 12, 240, 15.00),
+(19, 202280245, 678, 320, 10.00), 
+(20, 202280243, 678, 290, 25.00);
